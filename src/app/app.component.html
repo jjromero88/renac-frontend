@@ -1,0 +1,28 @@
+
+<div class="container-me">
+    <div class="mat-app-background basic-container">      
+    </div>   
+
+    <div class="body">
+
+        <div *ngIf="title" class="navbar mt-4">
+            <h1>{{ title | capitalizar }}</h1>
+        </div>
+        <div *ngIf="subtitle" class="row">
+            <div class="col-sm-12"></div>
+            <h3> {{ subtitle }} </h3>
+        </div>
+    
+    <div class="mt-3">
+        <app-navbar></app-navbar>
+        <router-outlet></router-outlet>
+    </div>
+
+    </div>
+  </div>
+  <br/>
+  <footer>
+    © {{ currentDate | date:'yyyy' }} Oficina General de Tecnologías de la Información<br />Presidencia del Consejo de Ministros
+  </footer>
+
+

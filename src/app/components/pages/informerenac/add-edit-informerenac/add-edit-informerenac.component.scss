@@ -1,0 +1,29 @@
+
+.modal-content {
+      padding: 0px 24px 20px 24px;
+      width: 600px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+
+    mat-form-field {
+      width: 100%;
+  }
+  }
+
+  
+
+.action {
+    padding: 0px 25px 20px;
+    display: flex;
+    justify-content: flex-end;
+
+}
+.form-invalid-msg {
+    margin-top: -20px;  
+   }
+    
+.form-invalid-text {
+color: #f44336;
+}

@@ -1,0 +1,52 @@
+<div mat-dialog-title>
+    Informe de opinión favorable
+</div>
+<form [formGroup]="InformesOpinionFavorableForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="modal-content">
+        
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Número</mat-label>
+                  <input matInput type="text" formControlName="informeFavorableNumero" maxlength="20">
+                  <mat-icon matSuffix>texture</mat-icon>
+                </mat-form-field>
+                <div *ngIf="InformesOpinionFavorableForm.get('informeFavorableNumero')?.errors?.['serverError']" class="form-invalid-msg">
+                  <span class="form-invalid-text">{{ InformesOpinionFavorableForm.get('informeFavorableNumero')?.errors?.['serverError'] }}</span>
+              </div>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="informeFavorableFecha">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="InformesOpinionFavorableForm.get('informeFavorableFecha')?.errors?.['serverError']" class="form-invalid-msg">
+                  <span class="form-invalid-text">{{ InformesOpinionFavorableForm.get('informeFavorableFecha')?.errors?.['serverError'] }}</span>
+              </div>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">       
+                <mat-form-field appearance="outline">
+                    <ngx-mat-file-input 
+                    formControlName="informeFavorableArchivoBase64" 
+                    [multiple]="false" 
+                    [accept]="fileAccept"               
+                    valuePlaceholder="Adjuntar informe..."
+                    (change)="onFileChange($event)"></ngx-mat-file-input>
+                    <mat-icon matSuffix>attach_file</mat-icon>
+                </mat-form-field>
+                <div *ngIf="InformesOpinionFavorableForm.get('informeFavorableArchivoBase64')?.errors?.['serverError']" class="form-invalid-msg">
+                <span class="form-invalid-text">{{ InformesOpinionFavorableForm.get('informeFavorableArchivoBase64')?.errors?.['serverError'] }}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+        <button mat-raised-button class="example-button-row" type="submit">Registrar</button>
+    </div>
+</form>

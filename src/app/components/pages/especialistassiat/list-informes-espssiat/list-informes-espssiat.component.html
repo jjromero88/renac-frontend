@@ -1,0 +1,126 @@
+ 
+<div class="card">
+    <div class="card-header">
+
+        <div class="row">
+            <div class="col-lg-9">                  
+                <div class="filter-content">
+                    <mat-form-field appearance="fill">
+                    <mat-label>Buscar informe Renac</mat-label>
+                    <input matInput #filtroInput (keyup.enter)="applyFilter()"/>
+                    <mat-icon matPrefix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 align-items-end mt-2" style="text-align: right;">
+                <button mat-raised-button (click)="onDerivarInformes()">
+                    <mat-icon>open_in_browser</mat-icon>
+                    Derivar
+                </button>
+                <button mat-raised-button class="example-button-row" (click)="openAddInformeRenacForm()">
+                    <mat-icon>add</mat-icon>
+                    Registrar informe
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">      
+        <div>
+            <table mat-table [dataSource]="dataSource">
+
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <!-- <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                    [aria-label]="checkboxLabel()"
+                                    color="primary">
+                        </mat-checkbox> -->                        
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox   (click)="$event.stopPropagation()" 
+                                        (change)="$event ? toggleRow(row) : null"
+                                        [checked]="isSelected(row)" 
+                                        [aria-label]="checkboxLabel(row)"
+                                        color="primary">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="rownum">
+                    <th mat-header-cell *matHeaderCellDef> N° </th>
+                    <td mat-cell *matCellDef="let element" class="bold-cell"> {{ element.rownum }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fechareg">
+                    <th mat-header-cell *matHeaderCellDef> Registrado </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.fechaReg | dateFormat }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef> Circunscripcion </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.circunscripcion.nombreCircunscripcion }} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="numero">
+                    <th mat-header-cell *matHeaderCellDef> Número Informe </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button mat-icon-button color="primary" (click)="onDownloadInformeRenac(element.urlinformesustento)" matTooltip="Descargar">
+                            <mat-icon>get_app</mat-icon>
+                        </button>
+                        {{ element.numero }}                        
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef> Fecha informe </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.fecha | dateFormat }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="estadoderivacion">
+                    <th mat-header-cell *matHeaderCellDef> Estado </th>
+                    <td mat-cell *matCellDef="let element">
+                         {{ element.estadoDerivacion }} 
+                        </td>
+                </ng-container>
+
+                <ng-container matColumnDef="asientos" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef> Asiento </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button mat-icon-button routerLink="/asientos/{{ element.idInformeRenac }}" matTooltip="Registrar asiento">
+                            <mat-icon class="primary-icon">playlist_add</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element" style="text-align: right;">
+
+                        <button *ngIf="element.esDerivado" mat-icon-button disabled><mat-icon>edit</mat-icon></button>
+                        <button *ngIf="element.esDerivado" mat-icon-button disabled><mat-icon>delete</mat-icon></button>
+
+                        <button *ngIf="!element.esDerivado" mat-icon-button (click)="openEditInformerenacForm(element.idInformeRenac)" matTooltip="Editar">
+                            <mat-icon class="primary-icon">edit</mat-icon>
+                        </button>
+                        <button *ngIf="!element.esDerivado" mat-icon-button color="warn" (click)="onDeleteInformeRenac(element.idInformeRenac)" matTooltip="Eliminar">
+                            <mat-icon>delete</mat-icon>
+                        </button>        
+                    </td>
+                </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" aria-label="Select page of users"
+                showFirstLastButtons
+                [length]="paginacion.totalReg || 0"
+                [pageSize]="paginacion.rowsPerPage || 0"
+                (page)="onPageChange($event)">
+            </mat-paginator>
+        </div>    
+    </div>
+  </div>
+
+ 

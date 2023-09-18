@@ -1,0 +1,53 @@
+
+<div mat-dialog-title>
+    Informe Renac
+  </div>
+  <form [formGroup]="informeRenacForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="modal-content">
+  
+
+      
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <mat-label><b>Circunscripcion:</b></mat-label>
+          <p>
+            {{ nomCircunscripcion }}
+          </p>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <mat-label><b>Numero:</b> </mat-label>
+        <p>
+          {{informeRenac?.numero}}
+        </p>        
+      </div>
+
+        <div class="col-md-6">
+          <mat-label><b>Fecha:</b> </mat-label>
+          <p>
+            {{informeRenac?.fecha | customDate }}
+          </p>
+        </div>
+      </div>
+
+     
+      <app-fieldset>      
+        <div class="row mb-3">
+          <mat-radio-group [formControl]="tiposEvaluacionFavorable" name="evaluacionFavorable">
+            <mat-radio-button *ngFor="let opcion of listaEvaluacionFavorable;" class="fieldset-radio"
+              [value]="opcion.value" color="primary">{{ opcion.descripcion }}</mat-radio-button>
+          </mat-radio-group>
+        </div>    
+        </app-fieldset>
+
+
+      
+       
+    </div>
+  
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+        <button mat-raised-button class="example-button-row" type="submit">Actualizar</button>
+    </div>
+  </form>

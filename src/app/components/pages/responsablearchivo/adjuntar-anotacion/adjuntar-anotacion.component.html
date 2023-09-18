@@ -1,0 +1,133 @@
+<div mat-dialog-title>
+    Registro de anotación
+</div>
+<form [formGroup]="registroAnotacionForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="modal-content">
+
+
+
+        <ng-container *ngIf="idInformeRenac; else frmRegistrarAnotacion">
+            
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p><mat-label><b>Oficio de anotación</b></mat-label></p>
+                    <p>
+                    Número: {{ InformeRenac?.oficioAnotacionNumero }}</p><p>
+                    Fecha: {{ InformeRenac?.oficioAnotacionFecha | customDate }}<br/>
+                    Documento: {{ oficioAnotacionFile?.name }}
+                    <button mat-icon-button type="button" color="primary" (click)="onDownloadDocument(InformeRenac?.oficioAnotacionArchivo)"  [matTooltip]="'Descargar '">                            
+                        <mat-icon>get_app</mat-icon>
+                    </button> 
+                    </p>                    
+                </div>
+                <hr>
+                <div class="col-md-12">
+                    <p><mat-label><b>Evidencia de anotación</b></mat-label></p>
+                    <p>
+                    Fecha: {{ InformeRenac?.evidenciaAnotacionFecha | customDate }}<br/>
+                    Documento: {{ evidenciaAnotacionFile?.name }}          
+                    <button mat-icon-button type="button" color="primary" (click)="onDownloadDocument(InformeRenac?.evidenciaAnotacionArchivo)" [matTooltip]="'Descargar '">                            
+                        <mat-icon>get_app</mat-icon>
+                    </button>          
+                    </p>
+                </div>
+                <br/>
+            </div>
+            <hr/>
+
+        </ng-container>
+          
+        <ng-template #frmRegistrarAnotacion>
+            <div id="frmRegistrarAnotacion">
+                <app-fieldset>
+            
+                    <h4>Oficio de anotación</h4>
+        
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Número</mat-label>
+                                <input matInput type="text" formControlName="oficioAnotacionNumero" maxlength="20">
+                                <mat-icon matSuffix>texture</mat-icon>
+                            </mat-form-field>
+                            <div *ngIf="registroAnotacionForm.get('oficioAnotacionNumero')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ registroAnotacionForm.get('oficioAnotacionNumero')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+        
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Fecha</mat-label>
+                                <input matInput [max]="maxDate" [matDatepicker]="pickerOficio"  formControlName="oficioAnotacionFecha">
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerOficio"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerOficio></mat-datepicker>
+                            </mat-form-field>
+                            <div *ngIf="registroAnotacionForm.get('oficioAnotacionFecha')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ registroAnotacionForm.get('oficioAnotacionFecha')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-12">       
+                            <mat-form-field appearance="outline">
+                                <ngx-mat-file-input 
+                                formControlName="oficioAnotacionArchivoBase64" 
+                                [multiple]="false" 
+                                [accept]="fileAcceptOficioAnotacion"               
+                                [valuePlaceholder]="oficioAnotacionFile?.name"
+                                (change)="onFileChange($event, 'oficio')"></ngx-mat-file-input>
+                                <mat-icon matSuffix>attach_file</mat-icon>
+                            </mat-form-field>
+                            <div *ngIf="registroAnotacionForm.get('oficioAnotacionArchivoBase64')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ registroAnotacionForm.get('oficioAnotacionArchivoBase64')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </app-fieldset>    
+                <app-fieldset>
+        
+                    <h4>Evidencia de anotación</h4>
+        
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Fecha</mat-label>
+                                <input matInput  [max]="maxDate" [matDatepicker]="pickerEvidencia" formControlName="evidenciaAnotacionFecha">
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerEvidencia"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerEvidencia></mat-datepicker>
+                            </mat-form-field>
+                            <div *ngIf="registroAnotacionForm.get('evidenciaAnotacionFecha')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ registroAnotacionForm.get('evidenciaAnotacionFecha')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline">
+                                <ngx-mat-file-input 
+                                formControlName="evidenciaAnotacionArchivoBase64" 
+                                [multiple]="false" 
+                                [accept]="fileAcceptEvidenciaAnotacion"               
+                                [valuePlaceholder]="evidenciaAnotacionFile?.name"
+                                (change)="onFileChange($event, 'evidencia')"></ngx-mat-file-input>
+                                <mat-icon matSuffix>attach_file</mat-icon>
+                            </mat-form-field>
+                            <div *ngIf="registroAnotacionForm.get('evidenciaAnotacionArchivoBase64')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ registroAnotacionForm.get('evidenciaAnotacionArchivoBase64')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+        
+                </app-fieldset>
+            </div>
+        </ng-template>
+ 
+        
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">{{idInformeRenac ? 'Cerrar': 'Cancelar'}}</button>
+        <button *ngIf="!idInformeRenac" mat-raised-button class="example-button-row" type="submit">{{idInformeRenac ? 'Actualizar': 'Registrar'}}</button>
+    </div>
+</form>

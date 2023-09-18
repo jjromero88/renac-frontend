@@ -1,0 +1,86 @@
+
+<div mat-dialog-title>
+  Informe Renac
+</div>
+<form [formGroup]="informeRenacForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content class="modal-content">
+
+    <app-fieldset>      
+      <div class="row mb-3">
+        <mat-radio-group [formControl]="tiposCircunscripcionControl" name="tiposCircunscripcion">
+          <mat-radio-button *ngFor="let opcion of listaTipoCircunscripciones;" class="fieldset-radio"
+            [value]="opcion.id" color="primary" (change)="onTipoCircunscripcionChange(opcion.id)">{{ opcion.descripcion }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Circunscripcion</mat-label>
+            <input type="text" matInput formControlName="idCircunscripcion" [matAutocomplete]="auto"  placeholder="ejem: Lima">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+              (optionSelected)="selectedCircunscripcion = $event.option.value">
+              <mat-option *ngIf="loading" disabled>
+                Cargando...
+                <mat-progress-bar mode="query"></mat-progress-bar>
+              </mat-option>
+              <ng-container *ngIf="!loading">
+                <mat-option *ngFor="let option of options" [value]="option">
+                  {{   option.nombreCircunscripcion  }}
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div *ngIf="informeRenacForm.get('idCircunscripcion')?.errors?.['serverError']" class="form-invalid-msg">
+            <span class="form-invalid-text">{{ informeRenacForm.get('idCircunscripcion')?.errors?.['serverError'] }}</span>
+        </div>
+        </div>        
+      </app-fieldset>
+   
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Número</mat-label>
+            <input matInput type="text" formControlName="numero" maxlength="20">
+            <mat-icon matSuffix>texture</mat-icon>
+          </mat-form-field>
+          <div *ngIf="informeRenacForm.get('numero')?.errors?.['serverError']" class="form-invalid-msg">
+            <span class="form-invalid-text">{{ informeRenacForm.get('numero')?.errors?.['serverError'] }}</span>
+        </div>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fecha">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div *ngIf="informeRenacForm.get('fecha')?.errors?.['serverError']" class="form-invalid-msg">
+            <span class="form-invalid-text">{{ informeRenacForm.get('fecha')?.errors?.['serverError'] }}</span>
+        </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12">       
+          <mat-form-field appearance="outline">
+              <ngx-mat-file-input 
+              formControlName="InformeAnotacionBase64" 
+              [multiple]="false" 
+              [accept]="fileAccept"               
+              [valuePlaceholder]="informeFile?.name"
+              (change)="onFileChange($event)"></ngx-mat-file-input>
+              <mat-icon matSuffix>attach_file</mat-icon>
+          </mat-form-field>
+          <div *ngIf="informeRenacForm.get('InformeAnotacionBase64')?.errors?.['serverError']" class="form-invalid-msg">
+            <span class="form-invalid-text">{{ informeRenacForm.get('InformeAnotacionBase64')?.errors?.['serverError'] }}</span>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+      <button mat-raised-button class="example-button-row" type="submit">{{serialkey ? 'Actualizar': 'Registrar'}}</button>
+  </div>
+</form>

@@ -1,0 +1,33 @@
+
+<div mat-dialog-title>
+    <h1>Tipo de asiento</h1>
+</div>
+<form [formGroup]="tipoasientoForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="modal-content">
+        <div class="row mt-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Descripcion</mat-label>
+                <input matInput type="text" formControlName="descripcion" maxlength="50">
+            </mat-form-field>
+            <div *ngIf="tipoasientoForm.get('descripcion')?.errors?.['serverError']" class="form-invalid-msg">
+                <span class="form-invalid-text">{{ tipoasientoForm.get('descripcion')?.errors?.['serverError'] }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Codigo</mat-label>
+                <input matInput type="text" formControlName="codigo" maxlength="50">
+            </mat-form-field>
+            <div *ngIf="tipoasientoForm.get('codigo')?.errors?.['serverError']" class="form-invalid-msg">
+                <span class="form-invalid-text">{{ tipoasientoForm.get('codigo')?.errors?.['serverError'] }}</span>
+            </div>
+            <div *ngIf="tipoasientoForm.get('codigo')?.errors?.['invalidCodigo']" class="form-invalid-msg">
+                <span class="form-invalid-text">El código debe ser un número válido.</span>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+        <button mat-raised-button class="example-button-row" type="submit">{{serialkey ? 'Actualizar': 'Registrar'}}</button>
+    </div>
+</form>

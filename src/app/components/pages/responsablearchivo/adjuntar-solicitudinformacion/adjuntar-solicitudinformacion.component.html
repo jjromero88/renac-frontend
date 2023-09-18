@@ -1,0 +1,130 @@
+<div mat-dialog-title>
+    Solicitud de información
+</div>
+<form [formGroup]="solicitudInformacionForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="modal-content">
+
+
+        <ng-container *ngIf="idInformeRenac; else frmRegistrarSolicitudInformacion">
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p><mat-label><b>Oficio de Solicitud de información</b></mat-label></p>
+                    <p>
+                    Número: {{ InformeRenac?.oficioSolicitudNumero }}</p><p>
+                    Fecha: {{ InformeRenac?.oficioSolicitudFecha | customDate }}<br/>
+                    Documento: {{ solicitudFile?.name }}
+                    <button mat-icon-button type="button" color="primary" (click)="onDownloadDocument(InformeRenac?.oficioSolicitudArchivo)"  [matTooltip]="'Descargar '">                            
+                        <mat-icon>get_app</mat-icon>
+                    </button> 
+                    </p>                    
+                </div>
+                <hr>
+                <div class="col-md-12">
+                    <p><mat-label><b>Evidencia de Solicitud de información</b></mat-label></p>
+                    <p>
+                    Fecha: {{ InformeRenac?.evidenciaSolicitudFecha | customDate }}<br/>
+                    Documento: {{ evidenciaFile?.name }}          
+                    <button mat-icon-button type="button" color="primary" (click)="onDownloadDocument(InformeRenac?.evidenciaSolicitudArchivo)" [matTooltip]="'Descargar '">                            
+                        <mat-icon>get_app</mat-icon>
+                    </button>          
+                    </p>
+                </div>
+                <br/>
+            </div>
+            <hr/>
+
+        </ng-container>
+
+        <ng-template #frmRegistrarSolicitudInformacion>
+            <div>
+                <app-fieldset>
+            
+                    <h4>Oficio de solicitud de información</h4>
+        
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Número</mat-label>
+                                <input matInput type="text" formControlName="oficioSolicitudNumero" maxlength="20">
+                                <mat-icon matSuffix>texture</mat-icon>
+                            </mat-form-field>
+                            <div *ngIf="solicitudInformacionForm.get('oficioSolicitudNumero')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ solicitudInformacionForm.get('oficioSolicitudNumero')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+        
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Fecha</mat-label>
+                                <input matInput [max]="maxDate" [matDatepicker]="pickerSolicitud"  formControlName="oficioSolicitudFecha">
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerSolicitud"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerSolicitud></mat-datepicker>
+                            </mat-form-field>
+                            <div *ngIf="solicitudInformacionForm.get('oficioSolicitudFecha')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ solicitudInformacionForm.get('oficioSolicitudFecha')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-12">       
+                            <mat-form-field appearance="outline">
+                                <ngx-mat-file-input 
+                                formControlName="oficioSolicitudArchivoBase64" 
+                                [multiple]="false" 
+                                [accept]="fileAcceptSolicitud"               
+                                [valuePlaceholder]="solicitudFile?.name"
+                                (change)="onFileChange($event, 'solicitud')"></ngx-mat-file-input>
+                                <mat-icon matSuffix>attach_file</mat-icon>
+                            </mat-form-field>
+                            <div *ngIf="solicitudInformacionForm.get('oficioSolicitudArchivoBase64')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ solicitudInformacionForm.get('oficioSolicitudArchivoBase64')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </app-fieldset>
+                <app-fieldset>
+                    <h4>Evidencia de solicitud de información</h4>
+        
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Fecha</mat-label>
+                                <input matInput  [max]="maxDate" [matDatepicker]="pickerEvidencia" formControlName="evidenciaSolicitudFecha">
+                                <mat-datepicker-toggle matIconSuffix [for]="pickerEvidencia"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerEvidencia></mat-datepicker>
+                            </mat-form-field>
+                            <div *ngIf="solicitudInformacionForm.get('evidenciaSolicitudFecha')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ solicitudInformacionForm.get('evidenciaSolicitudFecha')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline">
+                                <ngx-mat-file-input 
+                                formControlName="evidenciaSolicitudArchivoBase64" 
+                                [multiple]="false" 
+                                [accept]="fileAcceptEvidencia"               
+                                [valuePlaceholder]="evidenciaFile?.name"
+                                (change)="onFileChange($event, 'evidencia')"></ngx-mat-file-input>
+                                <mat-icon matSuffix>attach_file</mat-icon>
+                            </mat-form-field>
+                            <div *ngIf="solicitudInformacionForm.get('evidenciaSolicitudArchivoBase64')?.errors?.['serverError']" class="form-invalid-msg">
+                                <span class="form-invalid-text">{{ solicitudInformacionForm.get('evidenciaSolicitudArchivoBase64')?.errors?.['serverError'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+        
+                </app-fieldset>
+            </div>
+        </ng-template>
+
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">{{idInformeRenac ? 'Cerrar': 'Cancelar'}}</button>
+        <button *ngIf="!idInformeRenac" mat-raised-button class="example-button-row" type="submit">{{idInformeRenac ? 'Actualizar': 'Registrar'}}</button>
+    </div>
+</form>

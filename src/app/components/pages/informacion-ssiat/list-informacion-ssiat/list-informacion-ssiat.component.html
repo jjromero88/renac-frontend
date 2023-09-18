@@ -1,0 +1,89 @@
+
+<div class="card modal-content">
+    <div class="card-header">
+        <div class="row">
+            Numero partida: {{ documentosSsiat?.numeroPartida }}
+        </div>
+    </div>
+    <div class="card-body">
+
+        
+
+        <div class="header-informacion text-center">
+            <div>
+                <b>Información SSIAT</b>
+                <hr>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    Informe que sustenta la anotación                
+                </div>
+                <div class="col-md-4">
+                    Proyecto Memo           
+                </div>
+                <div class="col-md-4">
+                    Respuesta GORE             
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <button mat-icon-button type="button" color="primary" 
+                    (click)="onDownloadDocumentoSsiat( documentosSsiat?.informeAnotacion )"  [matTooltip]="'Descargar'">                            
+                        <mat-icon>get_app</mat-icon>
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <button mat-icon-button type="button" color="primary" 
+                    (click)="onDownloadDocumentoSsiat( documentosSsiat?.proyectoMemoEspSsiat )"  [matTooltip]="'Descargar'">                            
+                        <mat-icon>get_app</mat-icon>
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <button mat-icon-button type="button" color="primary" 
+                    (click)="onDownloadDocumentoSsiat( documentosSsiat?.respuestaGore )"  [matTooltip]="'Descargar'">                            
+                        <mat-icon>get_app</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>        
+
+        <hr>
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="asiento">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Asiento </th>
+                <td mat-cell *matCellDef="let element"> {{element.informeRenac.numero }} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="tipodispositivo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+                <td mat-cell *matCellDef="let element"> {{element.norma.tipoDispositivo.descripcion }} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="numero">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Número </th>
+                <td mat-cell *matCellDef="let element"> {{element.norma.numero }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.norma.fecha | dateFormat }} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="norma">
+                <th mat-header-cell *matHeaderCellDef>Norma</th>
+                <td mat-cell *matCellDef="let element" style="text-align: center;">
+                    <button mat-icon-button type="button" color="primary" (click)="onDownloadNorma(element.norma.archivo)" [matTooltip]="'Descargar ' + element.norma.tipoDispositivo.descripcion + ' ' + element.norma.numero">                            
+                        <mat-icon>get_app</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+                    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+           
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+
+    </div>
+</div>

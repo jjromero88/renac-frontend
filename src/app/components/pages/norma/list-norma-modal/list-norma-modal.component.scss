@@ -1,0 +1,25 @@
+  
+.modal-content {
+  //  padding: 0px 24px 20px 24px;
+  width: 900px;
+}
+ 
+mat-form-field {
+  width: 100%;
+}
+ 
+ 
+.mat-column-tipodispositivo,
+.mat-column-numero,
+.mat-column-fecha,
+.mat-column-norma,
+.mat-column-eleccion {
+  text-align: center;
+}
+
+.mat-header-cell {
+  text-align: center;
+}
+
+.material-icons.color_green { color: #1EB980; }
+.material-icons.color_white { color: #FFFFFF; }

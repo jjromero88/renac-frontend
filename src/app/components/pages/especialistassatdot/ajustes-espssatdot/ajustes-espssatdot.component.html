@@ -1,0 +1,25 @@
+<div mat-dialog-title>
+    Requiere ajustes
+</div>
+<form [formGroup]="ajustesForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="modal-content">
+
+        <div class="row mt-1">
+            <div class="col-md">                  
+                <mat-form-field appearance="outline">
+                <mat-label>Observaciones: </mat-label>
+                <textarea formControlName="observacion" matInput #inputobservacion placeholder="Agregar observaciones..." class="custom-textarea"  maxlength="250"></textarea>
+                <mat-hint>{{inputobservacion.value.length || 0}}/250</mat-hint>
+                </mat-form-field>
+                <div *ngIf="ajustesForm.get('observacion')?.errors?.['serverError']" class="form-invalid-msg">
+                <span class="form-invalid-text">{{ ajustesForm.get('observacion')?.errors?.['serverError'] }}</span>
+                </div>
+            </div>
+        </div>  
+
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+        <button mat-raised-button class="example-button-row" type="submit">Devolver SSIAT</button>
+    </div>
+</form>

@@ -1,0 +1,197 @@
+<div mat-dialog-title>
+  {{serialkey ? 'Actualizar': 'Registrar'}} Asiento
+</div>
+<form [formGroup]="asientoForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content class="modal-content">              
+    <app-fieldset>
+      <div class="row" style="height: 40px;">
+        <div class="col-md-4">
+          <button mat-raised-button color="primary" type="button" (click)="openListNormasModal()"  style="margin-top: -0.28em;">
+            <mat-icon>attach_file</mat-icon>
+            Adjuntar Norma
+          </button>
+        </div>
+        <div class="col-md-7 align-items-end"  style="text-align: right;">
+          {{asientoNormaDescription}}  
+          <div *ngIf="!this.asientoNorma?.codNorma">
+            <div *ngIf="asientoForm.get('idDispositivo')?.errors?.['serverError']" class="form-invalid-msg" style="margin-top: -0.28em;">
+              <span class="form-invalid-text">{{ asientoForm.get('idDispositivo')?.errors?.['serverError'] }}</span>
+            </div>
+          </div>          
+        </div>
+        <div class="col-md-1">
+          <button  *ngIf="asientoNormaDescription" (click)="onDownloadNorma(this.asientoNorma?.archivo)" mat-icon-button type="button" style="margin-top: -0.48em;" color="primary">                            
+            <mat-icon>get_app</mat-icon>
+          </button>
+        </div>
+      </div>
+    </app-fieldset>
+
+    <div class="row mt-3">
+      <div class="col-md-8">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" formControlName="nombreCircunscripcion" maxlength="100">
+          <mat-icon matSuffix>description</mat-icon>
+        </mat-form-field>
+        <div *ngIf="asientoForm.get('nombreCircunscripcion')?.errors?.['serverError']" class="form-invalid-msg">
+          <span class="form-invalid-text">{{ asientoForm.get('nombreCircunscripcion')?.errors?.['serverError'] }}</span>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Número</mat-label>
+          <input matInput type="text" formControlName="numeroAsiento" maxlength="100">
+          <mat-icon matSuffix>texture</mat-icon>
+        </mat-form-field>
+        <div *ngIf="asientoForm.get('numeroAsiento')?.errors?.['serverError']" class="form-invalid-msg">
+          <span class="form-invalid-text">{{ asientoForm.get('numeroAsiento')?.errors?.['serverError'] }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Capital</mat-label>
+          <input matInput type="text" formControlName="nombreCapital" maxlength="100">
+          <mat-icon matSuffix>pin_drop</mat-icon>
+        </mat-form-field>
+        <div *ngIf="asientoForm.get('nombreCapital')?.errors?.['serverError']" class="form-invalid-msg">
+          <span class="form-invalid-text">{{ asientoForm.get('nombreCapital')?.errors?.['serverError'] }}</span>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Departamento</mat-label>
+          <input matInput type="text" formControlName="nombreDepartamento" maxlength="100">
+          <mat-icon matSuffix>pin_drop</mat-icon>
+        </mat-form-field>
+        <div *ngIf="asientoForm.get('nombreDepartamento')?.errors?.['serverError']" class="form-invalid-msg">
+          <span class="form-invalid-text">{{ asientoForm.get('nombreDepartamento')?.errors?.['serverError'] }}</span>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Provincia</mat-label>
+          <input matInput type="text" formControlName="nombreProvincia" maxlength="100">
+          <mat-icon matSuffix>pin_drop</mat-icon>
+        </mat-form-field>
+        <div *ngIf="asientoForm.get('nombreProvincia')?.errors?.['serverError']" class="form-invalid-msg">
+          <span class="form-invalid-text">{{ asientoForm.get('nombreProvincia')?.errors?.['serverError'] }}</span>
+        </div>
+      </div>
+    </div>
+      
+    <div class="row mt-1">
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de asiento</mat-label>                      
+          <mat-select formControlName="idTipoAsiento" [(value)]="selectedTipoAsiento" (selectionChange)="onChangeTipoAsiento()">
+            <mat-option *ngFor="let option of tipoAsientoList" [value]="option.idTipoAsiento">
+              {{ option.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="asientoForm.get('idTipoAsiento')?.errors?.['serverError']" class="form-invalid-msg">
+          <span class="form-invalid-text">{{ asientoForm.get('idTipoAsiento')?.errors?.['serverError'] }}</span>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <mat-form-field appearance="outline">
+          <mat-label>Detalle Modificación</mat-label>
+          <mat-select 
+            formControlName="detallesModificacion" 
+            [disabled]="codTipoAsiento === 2"
+            [(ngModel)]="selectedModificaciones"
+            multiple>
+              <mat-option *ngFor="let option of tipoModificacionesList" [value]="option.idTipoModificacionAsiento">
+                {{ option.descripcion }}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="asientoForm.get('detallesModificacion')?.errors?.['serverError'] && codTipoAsiento != 2" class="form-invalid-msg">
+          <span class="form-invalid-text">{{ asientoForm.get('detallesModificacion')?.errors?.['serverError'] }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-md-12" *ngIf="codTipoAsiento === 0 || codTipoAsiento === 1 || codTipoAsiento === 2">
+        <mat-form-field class="example-chip-list" appearance="outline">
+          <mat-label>Circunscripcion origen:</mat-label>
+          <mat-chip-grid #chipGridOrigen aria-label="Circunscripcion origen..." 
+                         formControlName="circunscripcionOrigenes">
+            <mat-chip-row *ngFor="let origen of listaOrigenes"  
+                          color="primary" highlighted
+                          (removed)="removeOrigenDestino(origen, true)"
+                          [editable]="true"
+                          (edited)="editOrigenDestino(origen, $event, true)"
+                          [aria-description]="'Presionar enter para editar ' + origen.nombreCircunscripcion">
+              {{origen.nombreCircunscripcion}}
+              <button matChipRemove [attr.aria-label]="'Eliminar ' + origen.nombreCircunscripcion">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input placeholder="Agregar Circunscripciones origen..."
+                    
+                    [matChipInputFor]="chipGridOrigen"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="addOrigenDestino($event, true)"/>
+          </mat-chip-grid>         
+        </mat-form-field>
+        <div *ngIf="asientoForm.get('circunscripcionOrigenes')?.errors?.['serverError']" class="form-invalid-msg">
+          <span class="form-invalid-text">{{ asientoForm.get('circunscripcionOrigenes')?.errors?.['serverError'] }}</span>
+        </div>
+      </div>
+
+        <div class="col-md-12" *ngIf="codTipoAsiento === 1 || codTipoAsiento === 3">
+          <mat-form-field class="example-chip-list" appearance="outline">
+            <mat-label>Circunscripcion destino:</mat-label>
+            <mat-chip-grid #chipGridDestino aria-label="Circunscripcion destino..." 
+                           formControlName="circunscripcionDestinos">
+              <mat-chip-row *ngFor="let destino of listaDestinos" 
+                            color="primary" highlighted
+                            (removed)="removeOrigenDestino(destino, false)"
+                            [editable]="true"
+                            (edited)="editOrigenDestino(destino, $event, false)"
+                            [aria-description]="'Presionar enter para editar ' + destino.nombreCircunscripcion">
+                {{destino.nombreCircunscripcion}}
+                <button matChipRemove [attr.aria-label]="'Eliminar ' + destino.nombreCircunscripcion">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input placeholder="Agregar Circunscripciones destino..."
+                      
+                      [matChipInputFor]="chipGridDestino"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="addOrigenDestino($event, false)"/>
+            </mat-chip-grid>
+          </mat-form-field>
+          <div *ngIf="asientoForm.get('circunscripcionDestinos')?.errors?.['serverError']" class="form-invalid-msg">
+            <span class="form-invalid-text">{{ asientoForm.get('circunscripcionDestinos')?.errors?.['serverError'] }}</span>
+          </div>
+      </div>
+    </div>
+    
+    <div class="row mt-1">
+      <div class="col-md">                  
+        <mat-form-field appearance="outline">
+          <mat-label>Información complementaria</mat-label>
+          <textarea formControlName="informacionComplementaria" matInput #inputInformacionComplementaria placeholder="Agregar información complementaria..."  maxlength="250"></textarea>
+          <mat-hint>{{inputInformacionComplementaria.value.length || 0}}/250</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>             
+  </div>
+  <div mat-dialog-actions class="action">
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+    <button mat-raised-button class="example-button-row" type="submit">{{serialkey ? 'Actualizar': 'Registrar'}}</button>
+  </div>
+</form>

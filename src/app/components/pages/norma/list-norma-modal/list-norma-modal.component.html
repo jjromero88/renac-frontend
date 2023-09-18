@@ -1,0 +1,84 @@
+
+
+<div class="card modal-content">
+
+ 
+  <div class="card-body">
+
+    <div class="row mt-1">
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de norma</mat-label>        
+          <mat-select [(value)]="selectedTipoNorma" (selectionChange)="onChangeTipoNorma()">
+            <mat-option *ngFor="let option of tipoNormaList" [value]="option.id">
+              {{ option.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Número</mat-label>
+          <input matInput #filtroNumero (keyup.enter)="onChangeNumero()" type="text" maxlength="20">
+        </mat-form-field>
+      </div>
+  
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha</mat-label>
+          <input matInput [matDatepicker]="picker" (dateChange)="onChangeFecha($event)">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+  
+    </div>
+  
+
+      <table mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="tipodispositivo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Dispositivo </th>
+            <td mat-cell *matCellDef="let element"> {{element.tipoDispositivo.descripcion }} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Numero </th>
+            <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.fecha | dateFormat }} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="norma">
+              <th mat-header-cell *matHeaderCellDef>Norma</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">
+                  <button mat-icon-button type="button" color="primary" (click)="onDownloadNorma(element.archivo)" [matTooltip]="'Descargar ' + element.tipoDispositivo.descripcion + ' ' + element.numero">                            
+                      <mat-icon>get_app</mat-icon>
+                  </button>
+              </td>
+          </ng-container>
+
+          <ng-container matColumnDef="eleccion">
+              <th mat-header-cell *matHeaderCellDef>Eleccion</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">                       
+                  <button *ngIf="element.codNorma != serialkey" mat-icon-button type="button" color="primary" matTooltip="Adjuntar" (click)="onSelectedNorma(element)">
+                      <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <mat-icon *ngIf="element.codNorma === serialkey" class="material-icons color_green">done</mat-icon>
+
+                  </td>
+          </ng-container>
+      
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+         
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

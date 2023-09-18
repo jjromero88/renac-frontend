@@ -1,0 +1,125 @@
+<mat-toolbar class="crm-navigation-bar">
+  
+    <mat-toolbar-row class="headerSSO">
+      <header >
+        <div class="px-4 py-2 d-flex justify-content-between align-items-center">
+          <div class="logo">
+            <a href="javascript:;">
+              <img src="assets/images/logo_escudo.svg" class="logo-coat-of-arms" alt="Escudo del Perú" />
+              <img src="assets/images/logo_gobpe.svg" class="logo-gobpe" alt="gob.pe" />
+            </a>
+            <span class="logo-title">| Sistema de Registro Nacional de Circunscripciones (RENAC)</span>
+          </div>
+        </div>
+      </header>
+      <div fxFlex fxLayout class="flex-end">
+        <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+          <li fxHide.xs>
+            <!-- {{roleName}} -->
+            
+            <button mat-icon-button  [matMenuTriggerFor]="profile">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #profile="matMenu">
+              <button mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <!-- <span>{{userName}} </span>   -->
+                <span> jjromero88 </span> 
+              </button>
+             </mat-menu>
+          </li>
+          <li>
+              <button  mat-icon-button>
+                <mat-icon>exit_to_app</mat-icon>
+              </button>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      
+      
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="javascript:;"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+             
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Mantenimientos
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/tipoasiento">Tipos de asiento</a></li>
+                  <li><a class="dropdown-item" routerLink="/tiposmodificacion">Tipos de modificación</a></li>
+                  <li><a class="dropdown-item" routerLink="/tipodocumento">Tipos de documento</a></li>
+
+                  <!-- <li><a class="dropdown-item" href="javascript:;">Tipos de modificacion de asientos</a></li>
+                  <li><a class="dropdown-item" href="javascript:;">Normas</a></li> -->
+                </ul>
+              </li>              
+              <!-- <li class="nav-item">
+                <a class="nav-link" routerLink="/especialistassiat">Especialista SSIAT</a>
+              </li> -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Especialista SSIAT
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/registroinformes">Registro informes SSIAT</a></li>
+                  <li><a class="dropdown-item" routerLink="/registroformatos">Registro formatos / Respuesta GORE</a></li>
+                </ul>
+              </li>  
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Subsecretario SSIAT
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/subsecretariossiat">Derivación SSATDOT</a></li>
+                  <li><a class="dropdown-item" routerLink="/subsecretariossiatanotacion">Registro de anotación</a></li>
+                </ul>
+              </li>   
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Subsecretario SSATDOT
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/subsecretariossatdot">Asignar especialista</a></li>
+                  <li><a class="dropdown-item" routerLink="/subsecretariossatdotderivacion">Derivacion de informes</a></li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/especialistassatdot">Especialista SSATDOT</a>
+              </li>
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Responsable de archivo
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" routerLink="/responsablearchivosolicitud">Solicitud de información</a></li>
+                  <li><a class="dropdown-item" routerLink="/responsablearchivoanotacion">Informes de anotación</a></li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/consultas">Consultas</a>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <router-outlet></router-outlet>

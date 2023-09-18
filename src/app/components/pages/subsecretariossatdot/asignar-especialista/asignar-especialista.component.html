@@ -1,0 +1,23 @@
+<div mat-dialog-title>
+    Derivar {{informesSubSsiatSelected.length > 1 ? 'Informes': 'Informe'}}
+</div>
+<form [formGroup]="derivacionForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="modal-content">
+
+        <div class="row mt-3">
+            <mat-form-field  appearance="outline">
+                <mat-label>Especialista</mat-label>
+                <mat-select formControlName="idEspecialistaSsatdot">
+                    <mat-option *ngFor="let especialista of listaEspecialistas" [value]="especialista.value">
+                    {{ especialista.nomEspecialista }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>    
+
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+        <button mat-raised-button class="example-button-row" type="submit">Derivar {{informesSubSsiatSelected.length > 1 ? 'Informes': 'Informe'}}</button>
+    </div>
+</form>

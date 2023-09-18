@@ -1,0 +1,102 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-lg-9">                  
+                <div class="filter-content">
+                    <mat-form-field appearance="fill">
+                    <mat-label>Buscar informe Renac</mat-label>
+                    <input matInput #filtroInput (keyup.enter)="applyFilters()"/>
+                    <mat-icon matPrefix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 align-items-end mt-2" style="text-align: right;">
+                <button mat-raised-button class="example-button-row" [matMenuTriggerFor]="menu" aria-label="Acciones">                    
+                    <mat-icon>arrow_drop_down</mat-icon>
+                    Acciones
+                </button>
+                <mat-menu #menu="matMenu">
+                <button mat-menu-item  (click)="onDerivarInformes()">
+                    <mat-icon>open_in_browser</mat-icon>
+                    <span>Derivar informes</span>
+                </button>
+                <button mat-menu-item  (click)="onSubirInformeOpinionFavorable()">
+                    <mat-icon>publish</mat-icon>
+                    <span>Informe opinión favorable</span>
+                </button>
+                <button mat-menu-item (click)="onRegistrarAjustes()">
+                    <mat-icon>build</mat-icon>
+                    <span>Requiere ajustes</span>
+                </button>             
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>             
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox   (click)="$event.stopPropagation()" 
+                                    (change)="$event ? toggleRow(row) : null"
+                                    [checked]="isSelected(row)" 
+                                    [aria-label]="checkboxLabel(row)"
+                                    color="primary">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="rownum">
+                <th mat-header-cell *matHeaderCellDef> N° </th>
+                <td mat-cell *matCellDef="let element" class="bold-cell"> {{ element.rownum }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="numero">
+                <th mat-header-cell *matHeaderCellDef> Número </th>
+                <td mat-cell *matCellDef="let element"> {{ element.numero }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="circunscripcion">
+                <th mat-header-cell *matHeaderCellDef> Circunscripcion </th>
+                <td mat-cell *matCellDef="let element"> {{ element.circunscripcion.nombreCircunscripcion }} </td>
+            </ng-container>
+                   
+            <ng-container matColumnDef="documentos">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Documentos </th>
+                <td mat-cell *matCellDef="let element" style="text-align: center;"> 
+                    <button mat-icon-button color="primary" (click)="onVerDocumentos(element.idInformeRenac)" matTooltip="Ver documentos">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="editarevaluacion">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Evaluacion favorable </th>
+                <td mat-cell *matCellDef="let element" style="text-align: center;"> 
+                    <button mat-icon-button color="primary" (click)="onEditEvaluacionfavorable(element.idInformeRenac, element.circunscripcion.nombreCircunscripcion)"  matTooltip="Proyecto Informe">
+                        <mat-icon>border_color</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="estadossatdot">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Estado </th>
+                <td mat-cell *matCellDef="let element" style="text-align: center;"> {{ element.estadoDerivacion }} </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" aria-label="Select page of users"
+            showFirstLastButtons
+            [length]="paginacion.totalReg || 0"
+            [pageSize]="paginacion.rowsPerPage || 0"
+            (page)="onPageChange($event)">
+        </mat-paginator>
+    </div>
+
+</div>

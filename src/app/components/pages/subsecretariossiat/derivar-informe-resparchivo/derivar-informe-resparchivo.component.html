@@ -1,0 +1,52 @@
+<div mat-dialog-title>
+    Derivar {{informesRenacSelected.length > 1 ? 'Documentos': 'Documento'}}
+</div>
+<form [formGroup]="derivacionForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="modal-content">
+        
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Número</mat-label>
+                  <input matInput type="text" formControlName="numeroDocumento" maxlength="20">
+                  <mat-icon matSuffix>texture</mat-icon>
+                </mat-form-field>
+                <div *ngIf="derivacionForm.get('numeroDocumento')?.errors?.['serverError']" class="form-invalid-msg">
+                  <span class="form-invalid-text">{{ derivacionForm.get('numeroDocumento')?.errors?.['serverError'] }}</span>
+              </div>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha</mat-label>
+                  <input matInput [max]="maxDate" [matDatepicker]="picker" formControlName="fechaDocumento">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="derivacionForm.get('fechaDocumento')?.errors?.['serverError']" class="form-invalid-msg">
+                  <span class="form-invalid-text">{{ derivacionForm.get('fechaDocumento')?.errors?.['serverError'] }}</span>
+              </div>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">       
+                <mat-form-field appearance="outline">
+                    <ngx-mat-file-input 
+                    formControlName="documentoMemoBase64" 
+                    [multiple]="false" 
+                    [accept]="fileAccept"               
+                    valuePlaceholder="Adjuntar memorandum..."
+                    (change)="onFileChange($event)"></ngx-mat-file-input>
+                    <mat-icon matSuffix>attach_file</mat-icon>
+                </mat-form-field>
+                <div *ngIf="derivacionForm.get('documentoMemoBase64')?.errors?.['serverError']" class="form-invalid-msg">
+                <span class="form-invalid-text">{{ derivacionForm.get('documentoMemoBase64')?.errors?.['serverError'] }}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+        <button mat-raised-button class="example-button-row" type="submit">Derivar {{informesRenacSelected.length > 1 ? 'Informes': 'Informe'}}</button>
+    </div>
+</form>

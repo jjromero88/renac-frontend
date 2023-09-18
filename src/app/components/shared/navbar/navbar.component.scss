@@ -1,0 +1,172 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .example-is-mobile .example-toolbar {
+    position: fixed;
+    z-index: 2;
+  }
+  
+  h1.example-app-name {
+    margin-left: 8px;
+  }
+  
+  .example-sidenav-container {
+    flex: 1;
+  }
+  
+  .example-is-mobile .example-sidenav-container {
+    flex: 1 0 auto;
+  }
+  
+  .mat-drawer-container {
+    background-color: transparent !important;
+    color: rgba(0,0,0,.87);
+  }
+  
+  .mat-drawer{
+    position: fixed !important;
+    top: 72px !important;
+    height: inherit;
+    overflow: auto !important;
+    background-color: rgb(68, 68, 68) !important;
+    width: 220px !important;
+  }
+  
+  .mat-subheader{
+    color: #F2F2F2;
+    background-color: #58595B;
+  }
+  
+  .mat-list-item{
+    color: #F2F2F2;
+    font-size: 14px;
+  }
+  
+  .mat-nav-list .mat-list-item:hover {
+    border-left-style: solid;
+    border-left-color: #58595B;
+    border-left-width: 5px;
+  }
+  
+  .navigation-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+  }
+  
+  .mat-list-base {
+    padding-top: 0px;
+  }
+  
+  .crm-navigation-bar {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    color: white;
+  }
+  
+  .crm-toolbar-title {
+    padding: 16px !important;
+  }
+  
+  .ul-toolbar{
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+  }
+  
+  .flex-end{
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: stretch flex-end;
+    align-items: stretch;
+    flex: 1 1 0%;
+  }
+
+
+  .contenedorMenuOpciones{
+    display: flex;
+    flex-direction: row;
+    align-items: center;  
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    left: 0px;
+    background: #FFFFFF;
+    padding-left: 50px;
+    padding-right: 50px;
+    box-shadow: #8A94A2;
+    box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+  }
+
+  .menuOpcion{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
+    height: 80px;   
+    flex: none; 
+    align-self: stretch;
+    flex-grow: 1;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;  
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #26292E;
+    margin-left: 5px;
+    
+  }
+  
+  .subMenuOpcion{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    width: 197.33px;
+    height: 80px;   
+    flex: none; 
+    align-self: stretch;
+    flex-grow: 1;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;  
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #26292E;
+    margin-left: 5px;
+    
+  }
+
+  .active-link{
+    color: #BF0909 !important;
+    font-weight: 700;
+    text-decoration: underline #BF0909; 
+  }
+
+
+
+  .mat-dialog-actions .mat-button+.mat-button, .mat-dialog-actions .mat-button+.mat-raised-button, .mat-dialog-actions .mat-raised-button+.mat-button, .mat-dialog-actions .mat-raised-button+.mat-raised-button {
+    margin-left: 8px;
+    background-color: #d60a0a !important;
+    color: white !important;
+}

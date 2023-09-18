@@ -1,0 +1,14 @@
+.filter-content {
+    mat-form-field {
+      width: 100%;  
+      margin-bottom: -1.40em;    
+      height: 75px; 
+    }
+  }
+  
+  .actions-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px; /* Espacio entre los botones */
+  }
+ 

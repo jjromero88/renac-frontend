@@ -1,0 +1,111 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-lg-9">                  
+                <div class="filter-content">
+                    <mat-form-field appearance="fill">
+                    <mat-label>Buscar asiento</mat-label>
+                    <input matInput #filtroInput (keyup.enter)="applyFilter()"/>
+                    <mat-icon matPrefix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 align-items-end mt-2" style="text-align: right;">
+                <button *ngIf="!InformeRenac?.esDerivado" mat-raised-button class="example-button-row" (click)="openAddAsientoCircunscripcionForm()">
+                    + Registrar asiento
+                </button>
+                <button *ngIf="InformeRenac?.esDerivado" mat-raised-button disabled>
+                    + Registrar asiento
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">      
+        <div>
+            <table mat-table [dataSource]="dataSource"  >
+
+                <ng-container matColumnDef="rownum">
+                    <th mat-header-cell *matHeaderCellDef> N° </th>
+                    <td mat-cell *matCellDef="let element" class="bold-cell"> {{ element.rownum }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipoasiento">
+                    <th mat-header-cell *matHeaderCellDef> Tipo Asiento </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.tipoAsiento.descripcion }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipodispositivo">
+                    <th mat-header-cell *matHeaderCellDef> Tipo Dispositivo </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.norma.tipoDispositivo.descripcion }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="numero">
+                    <th mat-header-cell *matHeaderCellDef> Numero </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.norma.numero }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.norma.fecha | dateFormat }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="capital">
+                    <th mat-header-cell *matHeaderCellDef> Capital </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.nombreCapital }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="departamento">
+                    <th mat-header-cell *matHeaderCellDef> Departamento </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.nombreDepartamento }} </td>
+                </ng-container>              
+
+                <ng-container matColumnDef="detallemodificacion">
+                    <th mat-header-cell *matHeaderCellDef> Detalle modificacion </th>
+                    <td mat-cell *matCellDef="let element"  style="white-space: pre-line;"> 
+                        {{ element.detalle_modificacion | bulletList }} 
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="norma">
+                    <th mat-header-cell *matHeaderCellDef> Norma </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button mat-icon-button color="primary" (click)="onDownloadNorma(element.norma.archivo)" matTooltip="Descargar">
+                            <mat-icon>get_app</mat-icon>
+                        </button>
+                        {{ element.numero }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element" style="text-align: right;">
+                      <div class="actions-container">
+
+                        <button *ngIf="InformeRenac?.esDerivado" mat-icon-button disabled><mat-icon>edit</mat-icon></button>
+                        <button *ngIf="InformeRenac?.esDerivado" mat-icon-button disabled><mat-icon>delete</mat-icon></button>
+
+                        <button *ngIf="!InformeRenac?.esDerivado" mat-icon-button (click)="openEditAsientoCircunscripcionForm(element.idAsientoCircunscripcion)" matTooltip="Editar">
+                          <mat-icon class="primary-icon">edit</mat-icon>
+                        </button>
+                        <button *ngIf="!InformeRenac?.esDerivado" mat-icon-button color="warn" (click)="onDeleteAsientoCircunscripcion(element.idAsientoCircunscripcion)" matTooltip="Eliminar">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+
+                      </div>
+                    </td>
+                  </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" aria-label="Select page of users"
+                showFirstLastButtons
+                [length]="paginacion.totalReg || 0"
+                [pageSize]="paginacion.rowsPerPage || 0"
+                (page)="onPageChange($event)">
+            </mat-paginator>
+        </div>    
+    </div>
+
+</div>

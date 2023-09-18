@@ -1,0 +1,366 @@
+/* You can add global styles to this file, and also import other style files */
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import '@sweetalert2/themes/dark/dark.scss';
+
+/* You can add global styles to this file, and also import other style files */
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+ 
+
+/*Header SSO*/
+.headerSSO {
+background-color: #BF0909; 
+}
+
+.logo a:hover {
+  text-decoration: none;
+}
+
+img.logo-coat-of-arms {
+  width: 3.5em;
+}
+
+img.logo-gobpe {
+  margin-left: .3em;
+  width: 5.625em;
+}
+
+img.logo-text {
+  margin-left: 15px;
+  border-left: 1px solid #fff;
+  padding: 10px 15px;
+  display: inline-block;
+  font-size: .96rem;
+}
+.mat-toolbar{
+  font-size: 1rem;
+  position: fixed;
+  top: 0;
+}
+
+.mat-toolbar-row{
+  padding: 0 !important;
+  height: 72px !important;
+}
+.crm-navigation-bar {
+  /* background-color: #c53030 !important; */
+}
+/**/
+
+/* -> LOGIN --------------------
+------------------------------*/
+.login {
+  padding-top: 5em;
+  padding-bottom: 5em;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.login a:hover {
+  text-decoration: none;
+}
+
+.logo-title {
+  margin-bottom: .75rem;
+  padding-left: 5px;
+  color: white;
+  font-weight: 550;
+}
+
+  .login img {
+    max-width: 95%;
+    height: auto;
+  }
+
+  .login .card {
+    margin: 0 auto;
+    padding: 1.6em 1em;
+    width: 28.125rem;
+  }
+
+  .login button {
+    padding: 1.2em 1em;
+    width: 100%;
+    font-size: .9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: .2em 0 1em;
+  }
+
+.form-login input {
+  padding: 1.4em 1em;
+  margin-bottom: 1em;
+}
+/**/
+/*Footer*/
+footer {
+  padding: 1em 1.5em;
+  padding-left: 50px;
+  background: #E5E5E5;
+  color: #868ba1;
+  font-size: .9rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+}
+/**/
+
+body {
+  font-family: "Montserrat", sans-serif !important;
+  position: relative;
+  min-height: 100vh;
+  min-width: 450px;
+}
+
+/*Clase que da el ancho del modal*/
+.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: -webkit-box;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+  /* width: 30%; */
+}
+/*Clase que da color a los botones*/
+.mat-fab, .mat-flat-button, .mat-mini-fab, .mat-raised-button .mat-checkbox-indeterminate .mat-accent .mat-checkbox-background{
+  color: rgba(0,0,0,.87);
+  color: #fff !important;
+  background-color: #d60a0a !important;
+  border-color: #d60a0a !important;
+}
+
+
+ 
+.container-me{
+  padding-bottom: 20px;
+}
+
+.body {
+  padding-top: 160px;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 10px;
+  margin-bottom: 2rem;
+}
+
+.body h1 {
+  color: #26292E;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 22px;
+
+
+}
+
+
+.body h3 { 
+  font-size: 1rem;
+}
+
+.contentGrid {
+  position: relative;
+  top: 20px;
+  margin-bottom: 1%;
+  padding-top: 24px;
+  padding-bottom: 40px;
+  padding-left: 1%;
+  padding-right: 1%;
+  width: 100%;
+  background: #F6F9FC;
+}
+
+table {
+  width: 100%;
+}
+
+.material-icons.orange600 {
+  color: #FB8C00;
+}
+
+.invisible{
+  display: block;
+  visibility: hidden!important;
+  height: 0;
+  width: 0;
+}
+.mat-elevation-z8{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+th.mat-header-cell {
+  text-align: center !important;
+}
+
+.mat-cell{
+  text-align: center;
+}
+
+/* Google Fonts */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v48/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.primary-icon {
+  color: #0056AC;
+}
+
+.example-button-row {
+  background-color: #0056AC !important;
+  color: #FFFFFF !important;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.2px;
+  margin-left: 0.5rem !important;
+ 
+}
+
+.cancel-button-row{
+  background-color: #f44336 !important;
+  color: #FFFFFF !important;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.2px;
+  margin-bottom: 1rem !important;
+ 
+}
+
+button:focus {
+  outline:0 !important;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.w180{
+  width: 180px im !important;
+}
+
+
+.btnAgregar{
+  width: 380px;
+  background: #0056AC!important;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+  height: 52px;
+  justify-content: center;
+
+}
+
+.cabeceraCrud{
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 16px !important;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    padding: 0 !important;
+    height: 72px !important;
+    margin-bottom: 20px;
+}
+
+.contenedorFiltro{
+
+  box-shadow: none;
+}
+
+.contentResultado h2{
+  margin-left: 10px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.38px;
+  color: #26292E;
+  margin-top: 34px;
+  margin-bottom: 34px;
+}
+
+.mat-table
+{
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-header-cell {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.22px;
+  color: #26292E;
+}
+
+
+
+.mat-column-RowNum {
+  font-weight: 700;
+  width: 5%;
+  text-align: center;
+}
+
+.bold-cell {
+  font-weight: bold;
+}
+
+.highlight {
+  background-color: yellow;
+}
+ 
